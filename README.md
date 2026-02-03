@@ -78,6 +78,13 @@ sudo apt install git
 
 **IMPORTANTE:** A versão do ChromeDriver deve ser compatível com sua versão do Chrome.
 
+### 🔒 Ambientes com Restrições de Internet
+
+Se você está em um ambiente corporativo com restrições de acesso ao PyPI:
+- ✅ Este projeto inclui uma pasta `wheels/` com todas as dependências
+- ✅ Instalação 100% offline disponível
+- 📖 Veja instruções completas em **[INSTALACAO_OFFLINE.md](INSTALACAO_OFFLINE.md)**
+
 #### Verificar versão do Chrome
 
 ```powershell

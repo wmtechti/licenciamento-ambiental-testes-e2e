@@ -48,11 +48,28 @@ python -m venv venv
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # 4. Instalar dependências
+
+## OPÇÃO A: Com acesso à internet
 pip install -r requirements.txt
+
+## OPÇÃO B: Sem acesso à internet (ambiente corporativo)
+pip install --no-index --find-links=wheels -r requirements.txt
 
 # 5. Verificar instalação
 python .\check_environment.ps1
 ```
+
+### 🔒 Instalação Offline (Importante para Ambiente Corporativo)
+
+Este projeto **inclui todos os wheels necessários** na pasta `wheels/` (65 arquivos, ~78 MB) para instalação em ambientes com restrições de acesso ao PyPI.
+
+**Vantagens:**
+- ✅ Instalação 100% offline
+- ✅ Não requer acesso a repositórios externos
+- ✅ Versões fixas e testadas
+- ✅ Instalação rápida (~1-2 minutos)
+
+**Documentação completa:** Ver [INSTALACAO_OFFLINE.md](INSTALACAO_OFFLINE.md)
 
 ### 3. Configuração do Ambiente (.env)
 

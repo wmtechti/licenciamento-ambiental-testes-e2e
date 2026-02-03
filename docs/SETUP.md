@@ -36,7 +36,7 @@ C:\chromedriver\chromedriver.exe --version
 
 ```powershell
 # Clonar repositório
-git clone https://github.com/wmiltecti/licenciamento-ambiental-testes-e2e.git
+git clone https://github.com/wmtechti/licenciamento-ambiental-testes-e2e.git
 cd licenciamento-ambiental-testes-e2e
 
 # Criar ambiente virtual
@@ -47,6 +47,30 @@ python -m venv venv
 
 # Se der erro de política de execução:
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+### 3.1. Instalação de Dependências
+
+**Opção 1: Instalação Online (com acesso à internet)**
+
+```powershell
+pip install -r requirements.txt
+```
+
+**Opção 2: Instalação Offline (ambiente com restrições)**
+
+Se você está em ambiente corporativo sem acesso ao PyPI:
+
+```powershell
+# Usar wheels incluídos no projeto
+pip install --no-index --find-links=wheels -r requirements.txt
+```
+
+📖 **Documentação completa:** [INSTALACAO_OFFLINE.md](../INSTALACAO_OFFLINE.md)
+
+**Verificar instalação:**
+
+```powershell
+python check_environment.ps1
 
 # Instalar dependências
 pip install -r requirements.txt
