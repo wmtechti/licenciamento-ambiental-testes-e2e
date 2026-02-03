@@ -1,5 +1,171 @@
 # Contexto Completo do Projeto - Testes E2E Licenciamento Ambiental
 
+---
+
+## 🤖 NOTAS PARA IA - LEIA PRIMEIRO
+
+### Contexto Crítico de Desenvolvimento
+
+**Este projeto foi desenvolvido iterativamente com várias correções importantes. Informações cruciais para IA:**
+
+#### ⚠️ ARMADILHAS E PEGADINHAS ENCONTRADAS
+
+1. **Tipo de Imóvel NÃO é botão, é SELECT**
+   - ❌ **ERRO COMUM:** Tentar clicar em botões com texto "URBANO", "RURAL"
+   - ✅ **CORRETO:** Usar `Select().select_by_value("URBANO")` 
+   - **Motivo:** Frontend usa `<select><option value="URBANO">🏙️ URBANO</option></select>`
+   - **Armadilha:** O emoji no texto visível dificulta select_by_visible_text()
+
+2. **Downloads Automáticos de JSON**
+   - **Problema:** Frontend baixa arquivo JSON automaticamente a cada etapa concluída
+   - **Solução:** Chrome configurado com `automatic_downloads: 2` (bloquear)
+   - **Localização:** `src/core/driver_manager.py` linha 30-37
+
+3. **Auto-Login via Token JWT**
+   - ❌ **NÃO usar:** Interação com formulário de login
+   - ✅ **USAR:** Injeção de token via Chrome DevTools Protocol
+   - **Motivo:** Mais rápido (economiza 5-10s por teste) e mais confiável
+   - **Implementação:** `src/pages/login_page.py` método `auto_login()`
+
+4. **Botões "Preencher Dados" vs Preenchimento Manual**
+   - **Padrão do Frontend:** Botões roxos/verdes que auto-preenchem formulários
+   - **Presentes em:** Dados Gerais, Atividades, Caracterização
+   - **NÃO presente em:** Imóvel (precisa preencher manualmente)
+   - ✅ **SEMPRE usar o botão quando disponível** (mais rápido e confiável)
+
+5. **Credenciais Git - Armadilha Windows**
+   - **Problema:** Windows Credential Manager salva credenciais antigas
+   - **Sintoma:** Git push falha com "Permission denied to wmiltecti"
+   - **Solução:** `cmdkey /delete:LegacyGeneric:target=git:https://github.com`
+
+#### 🎯 DECISÕES DE ARQUITETURA E MOTIVOS
+
+1. **Por que Page Object Model?**
+   - Locators centralizados (1 lugar para atualizar)
+   - Reutilização de código entre testes
+   - Testes mais legíveis e manuteníveis
+
+2. **Por que projeto separado (não dentro do frontend)?**
+   - Usuário roda frontend/backend em outras IDEs
+   - Isolamento de dependências
+   - Permite rodar testes independentemente
+
+3. **Por que incluir wheels/ no Git?**
+   - Ambiente corporativo tem restrições de acesso ao PyPI
+   - Instalação offline garantida
+   - Versões fixas e testadas (reprodutibilidade)
+
+4. **Por que auto-login em vez de login real?**
+   - Economia de tempo (5-10s por teste)
+   - Evita flakiness de tela de login
+   - Foca no que realmente está sendo testado (wizard, não login)
+
+#### ❌ ANTI-PATTERNS EVITADOS
+
+1. **NÃO usar xpath genérico** como `//button[1]`
+   - Frágil, quebra facilmente
+   - Usar data-testid ou identificadores específicos
+
+2. **NÃO usar sleep()**
+   - Usar WebDriverWait com condições explícitas
+   - Helpers em `src/utils/wait_helper.py`
+
+3. **NÃO colocar assertions dentro de Page Objects**
+   - Page Objects = ações e elementos
+   - Testes = assertions e validações
+
+4. **NÃO usar texto visível em locators quando há emojis**
+   - Exemplo: "🏙️ URBANO" quebra
+   - Usar atributo `value` do elemento
+
+#### 🔧 CONFIGURAÇÕES ESPECÍFICAS IMPORTANTES
+
+1. **Chrome Options (driver_manager.py)**
+   ```python
+   # Bloqueio de downloads (CRÍTICO)
+   prefs = {
+       "profile.default_content_setting_values.automatic_downloads": 2
+   }
+   ```
+
+2. **Waits**
+   - Implicit: 10s (global)
+   - Explicit: 20s (operações críticas)
+   - Nunca usar sleep() fixo
+
+3. **Fixtures Pytest (conftest.py)**
+   - `driver`: Scope function (novo driver por teste)
+   - `setup`: Autouse para preparar ambiente
+   - Token JWT carregado do .env
+
+#### 📝 EVOLUÇÃO DO CÓDIGO
+
+**Cronologia de Mudanças Importantes:**
+
+1. **Dia 1:** Estrutura inicial criada
+2. **Bug encontrado:** Locators de botões não funcionavam para tipo imóvel
+3. **Fix aplicado:** Mudança para Select() com select_by_value()
+4. **User feedback:** Código original fornecido - adaptação completa
+5. **Bug encontrado:** Downloads JSON atrapalhando testes
+6. **Fix aplicado:** Chrome prefs bloqueando downloads
+7. **Melhoria:** Wheels adicionados para instalação offline
+
+#### 🎨 CARACTERÍSTICAS DO FRONTEND (IMPORTANTE)
+
+1. **Dropdown de Tipo de Imóvel:**
+   ```html
+   <select>
+     <option value="">Selecione</option>
+     <option value="URBANO">🏙️ URBANO</option>
+     <option value="RURAL">🌾 RURAL</option>
+     <option value="LINEAR">🛤️ LINEAR</option>
+   </select>
+   ```
+   **⚠️ SEMPRE usar .select_by_value(), NUNCA .select_by_visible_text()**
+
+2. **Botões de Auto-Fill:**
+   - Texto: "Preencher Dados"
+   - Cor: Roxo ou Verde
+   - Etapas: Dados Gerais, Atividades, Caracterização
+
+3. **Navegação:**
+   - "Salvar": Salva dados da etapa
+   - "Próximo": Avança após salvar
+   - "Finalizar": Última etapa
+
+#### 🚨 SE VOCÊ FOR ADAPTAR PARA PROJETO PRINCIPAL
+
+**ATENÇÃO:** O projeto principal tem diferenças:
+- ⚠️ Dados de tela alterados
+- ⚠️ Regras de negócio modificadas
+- ⚠️ Possíveis novos campos/etapas
+
+**Passos recomendados:**
+1. Inspecionar elementos no frontend REAL primeiro
+2. Usar `test_helper_locators.py` para debug de locators
+3. Atualizar Page Objects incrementalmente
+4. Testar etapa por etapa, não tudo de uma vez
+5. Verificar se botões "Preencher Dados" ainda existem
+6. Confirmar estrutura do dropdown de tipo de imóvel
+
+#### 💡 DICAS PARA DEBUGGING
+
+1. **Locator não encontrado?**
+   - Verificar se elemento está em iframe
+   - Verificar se precisa de scroll
+   - Usar `test_helper_locators.py` para explorar
+
+2. **Teste flaky (instável)?**
+   - Adicionar wait explícito
+   - Verificar se elemento fica oculto/visível dinamicamente
+   - Screenshot em falha está habilitado
+
+3. **ChromeDriver incompatível?**
+   - Verificar versão do Chrome: `chrome://version`
+   - ChromeDriver é gerenciado automaticamente por webdriver-manager
+
+---
+
 ## 📋 Visão Geral do Projeto
 
 Este é um projeto **separado** de testes E2E automatizados para o sistema de Licenciamento Ambiental. Foi criado para rodar independentemente do frontend e backend, que executam em outras IDEs.
