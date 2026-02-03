@@ -1,0 +1,18 @@
+{
+  "empresa_01": {
+    "cnpj": "12.345.678/0001-90",
+    "razaoSocial": "Empresa Teste Ltda",
+    "nomeFantasia": "Teste Empresa",
+    "inscricaoEstadual": "123456789",
+    "telefone": "(69) 3421-1234",
+    "email": "contato@empresateste.com.br"
+  },
+  "empresa_mineracao": {
+    "cnpj": "98.765.432/0001-10",
+    "razaoSocial": "Mineração ABC S.A.",
+    "nomeFantasia": "ABC Mineração",
+    "inscricaoEstadual": "987654321",
+    "telefone": "(69) 3421-9999",
+    "email": "contato@abcmineracao.com.br"
+  }
+}

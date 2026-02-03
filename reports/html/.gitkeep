@@ -1,0 +1,6 @@
+# Placeholder para relatórios HTML
+# Os relatórios HTML serão gerados aqui após a execução dos testes
+#
+# Execute: pytest --html=reports/html/report.html --self-contained-html
+#
+# Para visualizar: abrir reports/html/report.html no navegador

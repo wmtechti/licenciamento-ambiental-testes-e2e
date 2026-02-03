@@ -1,0 +1,33 @@
+# ==============================================================================
+# Testes Automatizados E2E - Sistema de Licenciamento Ambiental
+# ==============================================================================
+
+# Selenium WebDriver
+selenium==4.15.2
+
+# Framework de Testes
+pytest==7.4.3
+pytest-html==4.1.1
+pytest-xdist==3.5.0
+pytest-timeout==2.2.0
+
+# Gerenciamento de Drivers
+webdriver-manager==4.0.1
+
+# Configurações e Ambiente
+python-dotenv==1.0.0
+
+# Validação de Dados (opcional)
+supabase==2.0.3
+
+# Utilitários
+requests==2.31.0
+Pillow==10.1.0
+
+# Relatórios Avançados (opcional)
+allure-pytest==2.13.2
+
+# Formatação e Linting (dev)
+black==23.12.1
+flake8==7.0.0
+mypy==1.8.0

@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.env
+*.egg-info/
+dist/
+build/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Testes
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+*.log
+.tox/
+
+# Saídas
+output/*.json
+output/*.txt
+reports/screenshots/*.png
+reports/html/*.html
+reports/json/*.json
+
+# ChromeDriver
+chromedriver
+chromedriver.exe
+.wdm/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporários
+*.tmp
+*.temp
+*.bak

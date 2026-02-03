@@ -1,0 +1,47 @@
+{
+  "imovel_rural_01": {
+    "tipo": "RURAL",
+    "nome": "Fazenda São João",
+    "area": "500",
+    "unidade": "hectares",
+    "municipio": "Porto Velho",
+    "uf": "RO",
+    "localizacao": "Zona Rural",
+    "car": "RO-1234567-ABCDEF123456",
+    "coordenadas": {
+      "latitude": "-8.76194",
+      "longitude": "-63.90389"
+    }
+  },
+  "imovel_urbano_01": {
+    "tipo": "URBANO",
+    "nome": "Lote Urbano Teste 8210",
+    "area": "1000",
+    "unidade": "m²",
+    "municipio": "Porto Velho",
+    "uf": "RO",
+    "bairro": "Centro",
+    "endereco": "Rua José de Alencar, 123",
+    "cep": "76801-001",
+    "coordenadas": {
+      "latitude": "-8.76194",
+      "longitude": "-63.90389"
+    }
+  },
+  "imovel_linear_01": {
+    "tipo": "LINEAR",
+    "nome": "Rodovia BR-364 - Trecho Porto Velho",
+    "extensao": "50",
+    "unidade": "km",
+    "municipios": ["Porto Velho", "Candeias do Jamari"],
+    "uf": "RO",
+    "coordenadas_inicio": {
+      "latitude": "-8.76194",
+      "longitude": "-63.90389"
+    },
+    "coordenadas_fim": {
+      "latitude": "-8.85194",
+      "longitude": "-63.95389"
+    }
+  }
+}

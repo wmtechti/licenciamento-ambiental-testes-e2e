@@ -1,0 +1,30 @@
+{
+  "mineracao_carvao": {
+    "codigo": 1232407,
+    "nome": "Extração e/ou beneficiamento de carvão mineral",
+    "tipo": "Mineração",
+    "quantidade": 150.0,
+    "unidade": "toneladas/mês"
+  },
+  "industria_madeira": {
+    "codigo": 1610201,
+    "nome": "Serrarias com desdobramento de madeira",
+    "tipo": "Indústria",
+    "quantidade": 500.0,
+    "unidade": "m³/mês"
+  },
+  "agricultura_soja": {
+    "codigo": 111301,
+    "nome": "Cultivo de soja",
+    "tipo": "Agricultura",
+    "quantidade": 1000.0,
+    "unidade": "hectares"
+  },
+  "pecuaria_gado": {
+    "codigo": 151201,
+    "nome": "Criação de bovinos para corte",
+    "tipo": "Pecuária",
+    "quantidade": 500.0,
+    "unidade": "cabeças"
+  }
+}
